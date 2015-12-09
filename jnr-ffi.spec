@@ -4,7 +4,8 @@
 
 Name:     jnr-ffi
 Version:  0.7.10
-Release:  4.0%{?dist}
+Release:  4.1
+Group:    Development/Java
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
@@ -21,7 +22,7 @@ BuildRequires:  mvn(org.ow2.asm:asm-analysis)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
 BuildRequires:  mvn(org.ow2.asm:asm-tree)
 BuildRequires:  mvn(org.ow2.asm:asm-util)
-BuildRequires:  mvn(org.sonatype.oss:oss-parent)
+BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
 
 
 BuildArch:     noarch
