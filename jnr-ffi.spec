@@ -1,18 +1,17 @@
 %{?_javapackages_macros:%_javapackages_macros}
-%global commit_hash f28dc0a
-%global tag_hash 929dd3c
 
 Name:     jnr-ffi
-Version:  0.7.10
-Release:  4.1
+Version:  2.0.6
+Release:  1.1
 Group:    Development/Java
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
 URL:      http://github.com/jnr/%{name}/
-Source0:  https://github.com/jnr/%{name}/tarball/%{version}/jnr-%{name}-%{version}-0-g%{commit_hash}.tar.gz
+Source0:  https://github.com/jnr/%{name}/tarball/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jffi)
+BuildRequires:  mvn(com.github.jnr:jffi::native:)
 BuildRequires:  mvn(com.github.jnr:jnr-x86asm)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
@@ -39,10 +38,7 @@ Summary:        Javadocs for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%setup -q -n jnr-%{name}-%{tag_hash}
-
-# artifact com.github.jnr:jffi::native: is not available in Fedora
-%pom_xpath_remove "pom:dependency[pom:artifactId[text()='jffi'] and pom:classifier[text()='native']]"
+%setup -q
 
 # remove all builtin jars
 find -name '*.jar' -o -name '*.class' -exec rm -f '{}' \;
@@ -53,7 +49,7 @@ sed -i 's|-Werror||' libtest/GNUmakefile
 %mvn_file :{*} %{name}/@1 @1
 
 %build
-%mvn_build
+%mvn_build -f
 
 %install
 %mvn_install
