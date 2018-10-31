@@ -2,7 +2,7 @@
 
 Name:     jnr-ffi
 Version:  2.0.6
-Release:  1.1
+Release:  1.2
 Group:    Development/Java
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
