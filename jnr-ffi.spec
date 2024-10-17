@@ -6,7 +6,7 @@ Release:  1.3
 Group:    Development/Java
 Summary:  Java Abstracted Foreign Function Layer
 License:  ASL 2.0
-URL:      http://github.com/jnr/%{name}/
+URL:      https://github.com/jnr/%{name}/
 Source0:  https://github.com/jnr/%{name}/tarball/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  maven-local
