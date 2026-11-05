@@ -15,6 +15,9 @@ BuildRequires:	mvn(com.github.jnr:jffi)
 BuildRequires:	mvn(org.ow2.asm:asm)
 BuildRequires:	mvn(org.ow2.asm:asm-commons)
 BuildRequires:	mvn(org.ow2.asm:asm-analysis)
+# Literal, so the first rpmbuild -bs records them before sysjar is installed.
+BuildRequires:	maven
+BuildRequires:	java-current-devel
 BuildSystem:	maven
 
 %description
