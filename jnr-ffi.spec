@@ -9,9 +9,14 @@ Source0:	https://github.com/jnr/jnr-ffi/archive/refs/tags/jnr-ffi-%{version}.tar
 
 BuildArch:	noarch
 BuildRequires:	python
-# jffi is published in cooker/extra, so the build repositories have to
-# include extra or this require cannot be installed.
+# jffi and jnr-x86asm are published in cooker/extra, so the build
+# repositories have to include extra or these requires cannot be installed.
 BuildRequires:	mvn(com.github.jnr:jffi)
+BuildRequires:	mvn(com.github.jnr:jnr-a64asm)
+BuildRequires:	mvn(com.github.jnr:jnr-x86asm)
+# The published parent provides mvn(group:artifact:pom::). builddep does
+# not request a parent that is already packaged.
+BuildRequires:	mvn(com.github.jnr:jnr-parent:pom::)
 BuildRequires:	mvn(org.ow2.asm:asm)
 BuildRequires:	mvn(org.ow2.asm:asm-commons)
 BuildRequires:	mvn(org.ow2.asm:asm-analysis)
@@ -71,6 +76,28 @@ text = re.sub(
 	r'\1 combine.self="override">',
 	text,
 	count=1,
+)
+# A versionless jar plugin is removed. A concrete version stays and is
+# then pointed at the toolchain jar.
+text = text.replace(
+	"<artifactId>maven-jar-plugin</artifactId>",
+	"<artifactId>maven-jar-plugin</artifactId>\n        <version>3.3.0</version>",
+	1,
+)
+# pluginManagement is what a child inherits. An empty configuration
+# replaces jnr-parent's JDK toolchain, which runs even when tests are skipped.
+text = text.replace(
+	"<build>",
+	"""<build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration combine.self="override"/>
+        </plugin>
+      </plugins>
+    </pluginManagement>""",
+	1,
 )
 path.write_text(text)
 PY
