@@ -9,6 +9,12 @@ Source0:	https://github.com/jnr/jnr-ffi/archive/refs/tags/jnr-ffi-%{version}.tar
 
 BuildArch:	noarch
 BuildRequires:	python
+# jffi is published in cooker/extra, so the build repositories have to
+# include extra or this require cannot be installed.
+BuildRequires:	mvn(com.github.jnr:jffi)
+BuildRequires:	mvn(org.ow2.asm:asm)
+BuildRequires:	mvn(org.ow2.asm:asm-commons)
+BuildRequires:	mvn(org.ow2.asm:asm-analysis)
 BuildSystem:	maven
 
 %description
